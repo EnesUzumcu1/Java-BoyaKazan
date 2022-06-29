@@ -14,8 +14,9 @@ import com.example.boyakazan.databinding.ActivityAyarlarEkraniBinding;
 
 public class AyarlarEkrani extends AppCompatActivity {
     private ActivityAyarlarEkraniBinding binding;
-    public static Drawable oyuncu1Drawable,oyuncu2Drawable;
+    public static Drawable oyuncu1Drawable, oyuncu2Drawable;
     public static Object tag1, tag2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +31,7 @@ public class AyarlarEkrani extends AppCompatActivity {
         });
     }
 
-    public void atamalar(){
+    public void atamalar() {
         binding.oyuncu1RengiButon.setBackgroundResource(R.drawable.custom_button_black);
         binding.oyuncu2RengiButon.setBackgroundResource(R.drawable.custom_button_red);
         solButonOnClickAtama(binding.solRenk1Button);
@@ -53,7 +54,7 @@ public class AyarlarEkrani extends AppCompatActivity {
         sagButonOnClickAtama(binding.sagRenk9Button);
     }
 
-    public void solButonOnClickAtama(final Button buton){
+    public void solButonOnClickAtama(final Button buton) {
         buton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +64,8 @@ public class AyarlarEkrani extends AppCompatActivity {
             }
         });
     }
-    public void sagButonOnClickAtama(final Button buton){
+
+    public void sagButonOnClickAtama(final Button buton) {
         buton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,61 +75,65 @@ public class AyarlarEkrani extends AppCompatActivity {
             }
         });
     }
-    public boolean oyuncu1AdiDogrula(){
+
+    public boolean oyuncu1AdiDogrula() {
         String oyuncu1adi = binding.oyuncu1adiEditText.getEditText().getText().toString().trim();
-        if(oyuncu1adi.isEmpty()){
+        if (oyuncu1adi.isEmpty()) {
             binding.oyuncu1adiEditText.getEditText().setText("Oyuncu 1");
             return false;
-        }
-        else{
+        } else {
             binding.oyuncu1adiEditText.setError(null);
             return true;
         }
     }
-    public boolean oyuncu2AdiDogrula(){
+
+    public boolean oyuncu2AdiDogrula() {
         String oyuncu2adi = binding.oyuncu2adiEditText.getEditText().getText().toString().trim();
-        if(oyuncu2adi.isEmpty()){
+        if (oyuncu2adi.isEmpty()) {
             binding.oyuncu2adiEditText.getEditText().setText("Oyuncu 2");
             return false;
-        }
-        else{
+        } else {
             binding.oyuncu2adiEditText.setError(null);
             return true;
         }
     }
-    public boolean oyuncuAdiBenzerlikKontrol(){
+
+    public boolean oyuncuAdiBenzerlikKontrol() {
         String oyuncu1adi = binding.oyuncu1adiEditText.getEditText().getText().toString().trim();
         String oyuncu2adi = binding.oyuncu2adiEditText.getEditText().getText().toString().trim();
-        if(oyuncu1adi.equals(oyuncu2adi) ){
+        if (oyuncu1adi.equals(oyuncu2adi)) {
             binding.oyuncu1adiEditText.setError("Oyuncu adları aynı olamaz!");
             binding.oyuncu2adiEditText.setError("Oyuncu adları aynı olamaz!");
             return false;
-        }
-        else{
+        } else {
             binding.oyuncu1adiEditText.setError(null);
             binding.oyuncu2adiEditText.setError(null);
             return true;
         }
     }
-    public boolean oyuncuRenkleriKontrol(){
+
+    public boolean oyuncuRenkleriKontrol() {
         Drawable.ConstantState oyuncu1Drawable = binding.oyuncu1RengiButon.getBackground().getConstantState();
         Drawable.ConstantState oyuncu2Drawable = binding.oyuncu2RengiButon.getBackground().getConstantState();
         String x1 = String.valueOf(binding.oyuncu1RengiButon.getTag());
         String x2 = String.valueOf(binding.oyuncu2RengiButon.getTag());
-        if(oyuncu1Drawable.equals(oyuncu2Drawable) || x1.equals(x2)){
-            Toast.makeText(getApplicationContext(),"İki renk aynı olamaz.",Toast.LENGTH_SHORT).show();
+        if (oyuncu1Drawable.equals(oyuncu2Drawable) || x1.equals(x2)) {
+            Toast.makeText(getApplicationContext(), "İki renk aynı olamaz.", Toast.LENGTH_SHORT).show();
             return false;
-        }
-        else{
+        } else {
             return true;
         }
     }
-    public void kaydet(){
-        if(oyuncu1AdiDogrula() && oyuncu2AdiDogrula() && oyuncuRenkleriKontrol() && oyuncuAdiBenzerlikKontrol()){
-            Toast.makeText(getApplicationContext(),"Kaydedildi.",Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this,oyunEkrani.class);
-            intent.putExtra("oyuncu1Ad",binding.oyuncu1adiEditText.getEditText().getText().toString().trim());
-            intent.putExtra("oyuncu2Ad",binding.oyuncu2adiEditText.getEditText().getText().toString().trim());
+
+    public void kaydet() {
+        //Önceden çağrılmazsa 2.kere cağrılması gerekiyor. Sonuçlar önceden belirlenmesi için önceden çağırıldı.
+        oyuncu1AdiDogrula();
+        oyuncu2AdiDogrula();
+        if (oyuncu1AdiDogrula() && oyuncu2AdiDogrula() && oyuncuRenkleriKontrol() && oyuncuAdiBenzerlikKontrol()) {
+            Toast.makeText(getApplicationContext(), "Kaydedildi.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, oyunEkrani.class);
+            intent.putExtra("oyuncu1Ad", binding.oyuncu1adiEditText.getEditText().getText().toString().trim());
+            intent.putExtra("oyuncu2Ad", binding.oyuncu2adiEditText.getEditText().getText().toString().trim());
             oyuncu1Drawable = binding.oyuncu1RengiButon.getBackground();
             oyuncu2Drawable = binding.oyuncu2RengiButon.getBackground();
             tag1 = binding.oyuncu1RengiButon.getTag();
@@ -135,6 +141,7 @@ public class AyarlarEkrani extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
     public void openActivity(Class<?> classAdi) {
         Intent intent = new Intent(this, classAdi);
         startActivity(intent);

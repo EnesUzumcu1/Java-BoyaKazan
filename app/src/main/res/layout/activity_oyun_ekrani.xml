@@ -777,4 +777,17 @@
 
     </TableLayout>
 
+    <Button
+        android:id="@+id/buttonGeriAl"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tableLayoutHersey"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="#FFFFFF"
+        android:lineSpacingExtra="34sp"
+        android:text="Geri Al"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
 </RelativeLayout>

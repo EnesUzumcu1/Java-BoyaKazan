@@ -27,19 +27,22 @@ public class nasilOynanirEkrani extends AppCompatActivity {
         binding.ileriButon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(i == resimler.size()-1){
-                    i=-1;
+                if (i == resimler.size() - 1) {
+                    i = -1;
+                    openActivity(girisEkrani.class);
+                } else {
+                    i++;
+                    setGravity(i);
+                    binding.resimImageView.setImageResource(resimler.get(i));
+                    binding.aciklamaTextview.setText(aciklamalar.get(i));
                 }
-                i++;
-                setGravity(i);
-                binding.resimImageView.setImageResource(resimler.get(i));
-                binding.aciklamaTextview.setText(aciklamalar.get(i));
+
             }
         });
         binding.geriButon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(i== 0){
+                if (i == 0) {
                     i = resimler.size();
                 }
                 i--;
@@ -55,8 +58,8 @@ public class nasilOynanirEkrani extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void baslangic(){
-        i=0;
+    public void baslangic() {
+        i = 0;
         resimler = new ArrayList<>();
         resimler.add(R.drawable.telefonresim1);
         resimler.add(R.drawable.telefonresim2);
@@ -84,11 +87,10 @@ public class nasilOynanirEkrani extends AppCompatActivity {
         binding.resimImageView.setImageResource(resimler.get(0));
     }
 
-    public void setGravity(int i){
-        if(i ==resimler.size()-1){
+    public void setGravity(int i) {
+        if (i == resimler.size() - 1) {
             binding.aciklamaTextview.setGravity(Gravity.NO_GRAVITY);
-        }
-        else{
+        } else {
             binding.aciklamaTextview.setGravity(Gravity.CENTER);
         }
     }

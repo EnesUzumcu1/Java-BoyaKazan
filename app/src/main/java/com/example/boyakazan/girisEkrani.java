@@ -41,27 +41,29 @@ public class girisEkrani extends AppCompatActivity {
             }
         });
     }
-    public void tanimlamalar(){
+
+    public void tanimlamalar() {
         binding = ActivityGirisEkraniBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Drawable arkaplan = binding.enGenisLayout.getBackground();
         arkaplan.setAlpha(50);
     }
+
     public void openActivity(Class<?> classAdi) {
         Intent intent = new Intent(this, classAdi);
         startActivity(intent);
     }
+
     @Override
     public void onBackPressed() {
 
-        if(geriTusuBasilisSuresi +2000 > System.currentTimeMillis()){
+        if (geriTusuBasilisSuresi + 2000 > System.currentTimeMillis()) {
             geriTusuToast.cancel();
             finish();
             super.onBackPressed();
             return;
-        }
-        else{
-            geriTusuToast = Toast.makeText(getApplicationContext(),"Uygulamadan çıkmak için bir daha tıklayın.",Toast.LENGTH_SHORT);
+        } else {
+            geriTusuToast = Toast.makeText(getApplicationContext(), "Uygulamadan çıkmak için bir daha tıklayın.", Toast.LENGTH_SHORT);
             geriTusuToast.show();
         }
         geriTusuBasilisSuresi = System.currentTimeMillis();
